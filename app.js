@@ -1,3 +1,7 @@
+//APPID: henrythehelpfulfromhackru
+//APP_SECRET: a3a4852f54e740b7a298d983cdcba503
+//https://helpfulhenrybot.azurewebsites.net/api/messages
+
 //Make sure the following two modules are installed through npm!
 var restify = require('restify');
 var builder = require('botbuilder');
@@ -17,7 +21,9 @@ var today = theDate.getDay(); //randomize this for testing/showcase
 
 var builder = require('botbuilder');
 
-var helloBot = new builder.BotConnectorBot({ appId: 'YourAppId', appSecret: 'YourAppSecret' });
+var helloBot = new builder.BotConnectorBot({
+    appId: 'henrythehelpfulfromhackru',
+    appSecret: 'a3a4852f54e740b7a298d983cdcba503' });
 
 helloBot.add('/', new builder.CommandDialog()
     .matches(['fuc','bitch','dick','shit','wtf','stupid','pussy','damn','freaki','wank','piss','nigg'
@@ -269,7 +275,16 @@ helloBot.add('/help',  [
 
 // Setup Restify Server
 var server = restify.createServer();
+
+//Handle messages
 server.post('/api/messages', helloBot.verifyBotFramework(), helloBot.listen());
+
+// Serve a static web page
+server.get(/.*/, restify.serveStatic({
+    'directory': '.',
+    'default': 'index.html'
+}));
+
 server.listen(process.env.port || 3978, function () {
     console.log('%s listening to %s', server.name, server.url); 
 });
