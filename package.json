@@ -1,8 +1,7 @@
 {
   "name": "henry-bot",
   "version": "0.0.1",
-  "description": "The Helpful Henry Chat Bot is the personal assistant for
-    students in the Rutgers-New Brunswick community.",
+  "description": "The Helpful Henry Chat Bot is the personal assistant for students in the Rutgers-New Brunswick community.",
   "engines": {
     "node": "5.9.1"
   },
