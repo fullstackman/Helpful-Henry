@@ -4,7 +4,7 @@
   "description": "The Helpful Henry Chat Bot is the personal assistant for
     students in the Rutgers-New Brunswick community.",
   "engines": {
-    "node": "4.4.4"
+    "node": "5.9.1"
   },
   "main": "app.js",
   "scripts": {
