@@ -1,8 +1,5 @@
-//APPID: henrythehelpfulfromhackru
-//APP_SECRET: a3a4852f54e740b7a298d983cdcba503
-//https://helpfulhenrybot.azurewebsites.net/api/messages
 
-//Make sure the following two modules are installed through npm!
+//Make sure the following two modules are installed through npm via package.json!
 var restify = require('restify');
 var builder = require('botbuilder');
 
