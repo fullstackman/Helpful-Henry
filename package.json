@@ -20,9 +20,5 @@
   "bugs": {
     "url": "https://github.com/brandon8000/Helpful-Henry/issues"
   },
-  "homepage": "https://github.com/brandon8000/Helpful-Henry",
-  /*"dependencies": {
-    "botbuilder": "^0.8.0",
-    "restify": "^4.0.4"
-  }*/
+  "homepage": "https://github.com/brandon8000/Helpful-Henry"
 }
