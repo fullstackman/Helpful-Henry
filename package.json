@@ -7,8 +7,7 @@
   },
   "main": "app.js",
   "scripts": {
-    "preinstall": "npm i restify",
-    "preinstall": "npm i botbuilder",
+    "preinstall": "npm i restify botbuilder",
     "start": "node app.js"
   },
   "repository": {
