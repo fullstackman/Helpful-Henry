@@ -7,6 +7,8 @@
   },
   "main": "app.js",
   "scripts": {
+    "preinstall": "npm i restify",
+    "preinstall": "npm i botbuilder",
     "start": "node app.js"
   },
   "repository": {
@@ -19,8 +21,8 @@
     "url": "https://github.com/brandon8000/Helpful-Henry/issues"
   },
   "homepage": "https://github.com/brandon8000/Helpful-Henry",
-  "dependencies": {
+  /*"dependencies": {
     "botbuilder": "^0.8.0",
     "restify": "^4.0.4"
-  }
+  }*/
 }
