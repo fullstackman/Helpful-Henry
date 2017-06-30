@@ -1,20 +1,111 @@
 <html>
 	<head>
 		<meta name="theme-color" content="#d6d6d6">
+		<script src="https://twemoji.maxcdn.com/twemoji.min.js"></script>
+		<style type="text/css">
+			@media only screen and (max-width: 1025px) {
+				.blue-button {
+						-moz-box-shadow:inset 0px 1px 0px 0px #cae3fc;
+						-webkit-box-shadow:inset 0px 1px 0px 0px #cae3fc;
+						box-shadow:inset 0px 1px 0px 0px #cae3fc;
+						background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #4197ee) );
+						background:-moz-linear-gradient( center top, #79bbff 5%, #4197ee 100% );
+						filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#4197ee');
+						background-color:#79bbff;
+						-webkit-border-top-left-radius:37px;
+						-moz-border-radius-topleft:37px;
+						border-top-left-radius:37px;
+						-webkit-border-top-right-radius:0px;
+						-moz-border-radius-topright:0px;
+						border-top-right-radius:0px;
+						-webkit-border-bottom-right-radius:37px;
+						-moz-border-radius-bottomright:37px;
+						border-bottom-right-radius:37px;
+						-webkit-border-bottom-left-radius:0px;
+						-moz-border-radius-bottomleft:0px;
+						border-bottom-left-radius:0px;
+						text-indent:0;
+						border:1px solid #469df5;
+						display:inline-block;
+						color:#ffffff;
+						font-family:Verdana;
+						font-size:15px;
+						font-weight:bold;
+						font-style:normal;
+						height:65px;
+						line-height:65px;
+						width:300px;
+						text-decoration:none;
+						text-align:center;
+						text-shadow:1px 1px 0px #287ace;
+					}
+					.blue-button:hover {
+						background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4197ee), color-stop(1, #79bbff) );
+						background:-moz-linear-gradient( center top, #4197ee 5%, #79bbff 100% );
+						filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4197ee', endColorstr='#79bbff');
+						background-color:#4197ee;
+					}.blue-button:active {
+						position:relative;
+						top:1px;
+				}
+			}
+			@media only screen and (min-width: 1026px){
+				#mobile-button{
+					display:none;
+				}
+			}
+			body{
+				background-color: #d6d6d6;
+			}
+			#main-content{
+				margin-right: auto;
+				margin-left: auto;
+				text-align: center;
+			}
+			#info-title{
+				font-family: Verdana;
+				font-size: 110%;
+			}
+			img.emoji {  
+			  // Override any img styles to ensure Emojis are displayed inline
+			  margin: 0px !important;
+			  display: inline !important;
+			}
+		</style>
 	</head>
 
-	<body style="background-color: #d6d6d6">
-		<div  style='margin-right: auto; margin-left: auto;text-align: center'>
-			<p style="font-family: Verdana; font-size: 110%;"><em>The personal assistant for Rutgers - New Brunswick students</em></p>
+	<body>
+		<div id='main-content'>
+			<p id='info-title'><em>The personal assistant for Rutgers - New Brunswick students</em></p>
+			<p>Type in his name to get his attention!</p>
 			
 			<iframe src='https://webchat.botframework.com/embed/henrythehelpfulfromhackru?s=_rh1jzsren0.cwA.fUU.bjo1uaMhx2vU0Z9sDbtrUBimqVYKLg-lRjRowY6eN7g'
 				style="
 					height: 75%;
 					width: 90%;
 				">
+				Your browser does not support this service.
 			</iframe>
-
-			<p>View the project source code on <em><a href="https://github.com/brandon8000/Helpful-Henry">Github</a></em>!</p>
+			<div id='mobile-button'>
+				<a href='https://webchat.botframework.com/embed/henrythehelpfulfromhackru?s=_rh1jzsren0.cwA.fUU.bjo1uaMhx2vU0Z9sDbtrUBimqVYKLg-lRjRowY6eN7g'><button class='blue-button'>Mobile Friendly Version</button></a>
+			</div>
+			<p>Made with <span id="emoji-span"></span> in New Jersey, using the <a href="https://dev.botframework.com/" target="_blank">Microsoft Bot Framework</a>.</p>
+			<p>
+				Read about the process <a href="https://drive.google.com/file/d/0B-onwAJnctfNSVdjalJUMUt0clk/view">here</a>.
+			</p>
 		</div>
 	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+
+			// Set the size of the rendered Emojis
+			// This can be set to 16x16, 36x36, or 72x72
+			twemoji.size = '16x16';
+			document.getElementById('emoji-span').innerHTML = twemoji.parse('\u2764\uFE0F');
+			// Parse the document body and
+			// insert <img> tags in place of Unicode Emojis
+			twemoji.parse(document.body);
+			//U+1F496
+		}
+	</script>
 </html>
