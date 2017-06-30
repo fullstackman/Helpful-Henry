@@ -1,57 +1,114 @@
-
-//Make sure the following two modules are installed through npm via package.json!
+//Make sure the following two modules are installed through npm!
 var restify = require('restify');
 var builder = require('botbuilder');
 
-// Create bot and add dialogs
-/*var bot = new builder.BotConnectorBot({ appId: 'YourAppId', appSecret: 'YourAppSecret' });
-bot.add('/', function (session) {
-    session.send('Hello World');
-});*/
-
-var campuses = ['college ave', 'cac', 'busch','bush','livingston','livi',
-    'douglass','douglas','dougie','cook']
+var campuses = ['college ave', 'college avenue', 'busch','bush','livingston','livi',
+    'douglass','douglas','dougie','cook'];
+var fillerText = [
+    'I\'m here if you need me',
+    'I heard that new star wars movie is great',
+    'Yes',
+    'Maybe',
+    'No',
+    'I\'d rather not say',
+    'Just another day on the Banks of the Old Raritan',
+    'Is that all you can think of right now?',
+    'Happy birthday to the University!',
+    'Isn\'t technology amazing?',
+    '{{endpoint: no response; buffer overflow exception}, null}',
+    'Winter is upon us',
+    'Some things never change',
+    'I would be the authority on that',
+    'That sounds like something you should talk about with the TA',
+    '.......'
+];
 var start = -1;
 var end = -1;
 var theDate = new Date();
-var today = theDate.getDay(); //randomize this for testing/showcase
+var today = theDate.getDay();
 
 var builder = require('botbuilder');
 
-var helloBot = new builder.BotConnectorBot({
-    appId: 'henrythehelpfulfromhackru',
-    appSecret: 'a3a4852f54e740b7a298d983cdcba503' });
+// Setup Restify Server
+var server = restify.createServer();
 
-helloBot.add('/', new builder.CommandDialog()
+// Serve a static web page
+server.get(/.*/, restify.serveStatic({
+    'directory': '.',
+    'default': 'index.html'
+}));
+
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+    console.log('%s listening to %s', server.name, server.url); 
+});
+
+//create chat bot
+var connector = new builder.ChatConnector({
+    appId: 'b3378cc0-02c2-4510-ad05-30a98f1c5ab2',
+    appPassword: 'vGt0wRf4UxL4LZPLUHHuBcO'
+});
+
+var helloBot = new builder.UniversalBot(connector);
+server.post('/api/messages', connector.listen());
+
+var active = false;
+var history = 0;
+
+helloBot.dialog('/', new builder.CommandDialog()
     .matches(['fuc','bitch','dick','shit','wtf','stupid','pussy','damn','freaki','wank','piss','nigg'
         ], function (session){
-        session.endDialog('I will not tolerate your vulgarity!');
+        if(active){
+            session.endDialog('I will not tolerate your vulgarity!');
+            active = false;
+        }
     })
-    .matches(['hi','hello','what','hola','good ','i ','howdy'],
-        builder.DialogAction.beginDialog('/help'))
     .matches(['can','why','you','me'], function (session){
-        session.send('I can only help you with traveling. Nothing more.');
-        builder.DialogAction.beginDialog('/help');
+        if(active)
+            session.beginDialog('/help');
     })
-    .matches(['travel','hurry','bus','when','yes'], builder.DialogAction.beginDialog('/travel'))
-    .matches(['no','quit','bye','leave'], function (session) {
-        session.send('Good day...');
-        session.endDialog();
+    .matches(['travel','hurry','bus','when'], function (session) {
+        if(active)
+            session.beginDialog('/travel');
+    })
+    .matches(['no','quit','bye','leave','go','away'], function (session) {
+        if(active){
+            var closing = "";
+            if(history % 3 == 0)
+                closing = 'Good day...'
+            else if (history % 2 == 0)
+                closing = 'We can chat more later...'
+            else
+                closing = 'I\'ll give you some space...'
+            session.endDialog(closing);
+            active = false;
+        }
+    })
+    .matches(['henry'], function (session){
+        if(history == 0 )
+            session.send('Greetings.');
+        else
+            session.send('What do you need?');
+        active = true;
+        ++history;
     })
     .onDefault(function (session) {
-        if(today == 0 || today==6)
-            session.send('Must you bother me on the weekend as well?');
-        else
-            session.send('I\'m here if you need me...');
-    }));
+        if(active){
+            if(today == 0 || today==6)
+                session.send('Must you bother me with nonsense on the weekend as well?');
+            else{
+                var choice = Math.floor(Math.random() * fillerText.length);
+                session.send(fillerText[choice]);
+                choice = Math.floor(Math.random() * 63);
+                if(choice == 62)
+                    session.send('^ Sorry, wrong chat');
+            }
+        }
+    })
+);
 
-helloBot.add('/travel',  [
+helloBot.dialog('/travel',  [
     function (session) {
-        /*if(today == 0 || today == 6)
-            session.endDialog(
-                'Excuse me, but this is the weekend! Even a bot needs some rest days.')
-        else*/
-            builder.Prompts.text(session,
+        builder.Prompts.text(session,
             'What campus will you be starting from? (only enter the name!)');
     },
     function (session, results) {
@@ -260,28 +317,8 @@ helloBot.add('/travel',  [
     }
 ]);
 
-helloBot.add('/help',  [
+helloBot.dialog('/help',  [
     function (session) {
-        session.endDialog('How\'s it going?'
-            +'\n'+'I recognize the following commands:'
-            +'\n'+'travel'
-            +'\n'+'quit');
-}]);
-
-//helloBot.listenStdin();
-
-// Setup Restify Server
-var server = restify.createServer();
-
-//Handle messages
-server.post('/api/messages', helloBot.verifyBotFramework(), helloBot.listen());
-
-// Serve a static web page
-server.get(/.*/, restify.serveStatic({
-    'directory': '.',
-    'default': 'index.html'
-}));
-
-server.listen(process.env.PORT || 3978, function () {
-    console.log('%s listening to %s', server.name, server.url); 
-});
+        session.endDialog('I am here to serve.\nI recognize the following commands:\nbus\nquit');
+    }
+]);
