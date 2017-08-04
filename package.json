@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/brandon8000/Helpful-Henry.git"
+    "url": "https://github.com/fullstackman/Helpful-Henry.git"
   },
-  "author": "Brandon Diaz",
+  "author": "Brandon Diaz-Abreu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/brandon8000/Helpful-Henry/issues"
+    "url": "https://github.com/fullstackman/Helpful-Henry/issues"
   },
-  "homepage": "https://github.com/brandon8000/Helpful-Henry",
+  "homepage": "https://github.com/fullstackman/Helpful-Henry",
   "dependencies": {
     "botbuilder": "^3.2.3",
     "restify": "4.1.1"
